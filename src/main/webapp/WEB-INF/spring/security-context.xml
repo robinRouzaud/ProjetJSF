@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<beans:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="url"
+			value="jdbc:mysql://localhost:3306/projet_de_noel?createDatabaseIfNotExist=true" />
+		<beans:property name="username" value="root" />
+		<beans:property name="password" value="root" />
+	</beans:bean>
+	
+	<security:http use-expressions="true" auto-config="true">
+		<security:intercept-url pattern="/pages/admin/**"
+			access="isAuthenticated() and  hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/pages/user/**"
+			access="isAuthenticated() and  hasRole('ROLE_USER')" />
+			
+		<security:form-login login-page="/index.xhtml"
+			authentication-failure-url="/pages/wrong-password.xhtml" default-target-url="/pages/accueil.xhtml" authentication-success-handler-ref=""/>
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="userDetailsService" />
+	</security:authentication-manager>
+
+	<!-- <beans:bean id="encoder" -->
+	<!-- class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"> -->
+	<!-- </beans:bean> -->
+</beans:beans>

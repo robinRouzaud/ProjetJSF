@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<title>On va trouver un super nom pour un site de e-commerce</title>
+	</h:head>
+	<h:body bgcolor="white">
+		<div align="center">
+			<h1 class="title">Bienvenue, utilisateur #{clientCtrl.client.prenom}.</h1>
+			<h2>Liste des produits de la catégorie #{categorieCtrl.categorie.nomCategorie}</h2>
+		</div>
+		<br/>
+		<h:form>
+			<h:dataTable value="#{produitCtrl.getProduitList(categorieCtrl.categorie)}" var="p" styleClass="produit-table"
+				headerClass="produit-table-header" rowClasses="produit-table-add-row, produit-table-even-row">
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Nom du produit"/>
+					</f:facet>
+					<h:outputText value="#{p.nomProduit}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Référence"/>
+					</f:facet>
+					<h:outputText value="#{p.ref}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Panier"/>
+					</f:facet>
+					<h:commandLink value="Ajouter au panier" action="#{clientCtrl.ajoutProduit(p)}"/>
+				</h:column>
+			</h:dataTable>
+			<h:commandButton value="Voir mon panier" action="#{clientCtrl.goToPanier}"/>
+		</h:form>
+	</h:body>
+</html>

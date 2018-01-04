@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<title>On va trouver un super nom pour un site de e-commerce</title>
+	</h:head>
+	<h:body bgcolor="white">
+		<div align="center">
+			<h1 class="title">Login</h1>
+			<br/>
+			<fieldset>
+				<form action='j_spring_security_check' method="POST">
+					Entrez votre nom d'utilisateur:
+					<h:inputText id="j_username"   name="j_username"/>
+<!-- 					value="#{clientCtrl.email}" -->
+					Entrez votre mot de passe:
+					<h:inputSecret  id="j_password" name="j_password"/>
+					<br/>
+					<input type="submit" value="connect"/>
+				</form>
+			</fieldset>
+		</div>
+	</h:body>
+</html>

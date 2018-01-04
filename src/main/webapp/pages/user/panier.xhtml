@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<title>On va trouver un super nom pour un site de e-commerce</title>
+	</h:head>
+	<h:body bgcolor="white">
+		<div align="center">
+			<h1 class="title">Voici votre panier, utilisateur #{clientCtrl.client.prenom}.</h1>
+			<h2>Liste des produits présents dans le panier</h2>
+		</div>
+		<h:form>
+			<h:dataTable value="#{clientCtrl.afficherPanier()}" var="p" styleClass="produit-table"
+				headerClass="produit-table-header" rowClasses="produit-table-add-row, produit-table-even-row">
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Nom du produit"/>
+					</f:facet>
+					<h:outputText value="#{p.getProduit().nomProduit}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value="Référence"/>
+					</f:facet>
+					<h:outputText value="#{p.getProduit().ref}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputLabel value=""/>
+					</f:facet>
+					<h:commandLink value="Retirer du panier" action="#{clientCtrl.retraitProduit(p.getProduit())}"/>
+				</h:column>
+			</h:dataTable>
+			<h:commandButton value="Passer la commande" action="#{clientCtrl.validerCommande(p)}"/>
+			<h:commandButton value="Retour à l'accueil" action="#{clientCtrl.goToAccueil()}"/>
+		</h:form>
+	</h:body>
+</html>
